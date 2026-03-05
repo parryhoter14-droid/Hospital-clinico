@@ -1,5 +1,7 @@
 package clinico.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,20 +10,20 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-public class Medico {
+public class Paciente {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "O nome é obrigatório")
+    @NotBlank(message = "O nome do paciente é obrigatório")
     @Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres")
     private String nome;
 
-    @NotBlank(message = "O CRM é obrigatório")
-    private String crm;
+    @NotBlank(message = "O CPF é obrigatório")
+    @Size(min = 11, max = 11, message = "O CPF deve conter 11 dígitos")
+    private String cpf;
 
-    @NotBlank(message = "O CRM é obrigatório")
-    @Size(min = 6, max = 6, message = "O CRM deve ter exatamente 6 dígitos")
-    private String especialidade;
+    @NotBlank(message = "A data de nascimento é obrigatória")
+    private LocalDate data_nascimento;
 }
