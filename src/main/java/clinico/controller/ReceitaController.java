@@ -35,7 +35,7 @@ public class ReceitaController {
     }
 
     @PutMapping
-    public Response Atualizar(@PathVariable Long id;@RequestBody Receita entity){
+    public Response Atualizar(@PathVariable Long id, @RequestBody Receita entity){
 
          if (!repository.existsById(id)) {
         return new Response(404, "Receita não encontrada!");
@@ -60,6 +60,6 @@ public class ReceitaController {
     }
 
     repository.save(receitaAntiga);
-    return new Response(200, "Receita atualizada com sucesso!")
+    return new Response(200, "Receita atualizada com sucesso!");
     }
 }
