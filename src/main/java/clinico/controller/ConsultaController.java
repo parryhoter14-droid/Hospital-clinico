@@ -38,7 +38,7 @@ public class ConsultaController {
     public Response Atualizar(@PathVariable Long id, @RequestBody Consulta entity){
          
         if (!repository.existsById(id)) {
-        return new Response(404, "Consulta não encontrada");
+        return new Response(404, "Consulta não encontrada!");
     }
 
     Consulta consultaAntiga = repository.findById(id).get();
