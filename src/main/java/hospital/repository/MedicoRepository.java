@@ -1,8 +1,8 @@
-package clinico.repository;
+package hospital.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import clinico.entity.Medico;
+import hospital.entity.Medico;
 
 public interface MedicoRepository extends JpaRepository<Medico, Long>{
     

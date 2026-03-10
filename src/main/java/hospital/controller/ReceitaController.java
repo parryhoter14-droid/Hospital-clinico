@@ -1,8 +1,9 @@
-package clinico.controller;
+package hospital.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,14 +11,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import clinico.entity.Receita;
-import clinico.exception.Response;
-import clinico.repository.ReceitaRepository;
+import hospital.entity.Receita;
+import hospital.exception.Response;
+import hospital.repository.ReceitaRepository;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping
+@RequestMapping("/receitas")
 public class ReceitaController {
     
     @Autowired
@@ -62,4 +63,16 @@ public class ReceitaController {
     repository.save(receitaAntiga);
     return new Response(200, "Receita atualizada com sucesso!");
     }
+
+    @DeleteMapping("/{id}")
+  public Response deleteReceita(@PathVariable Long id) {
+
+    if (!repository.existsById(id)) {
+      return new Response(404, "Receita não encontrada");
+    }
+    repository.deleteById(id);
+
+    return new Response(204, "Receita deletada com sucessa");
+  }
 }
+

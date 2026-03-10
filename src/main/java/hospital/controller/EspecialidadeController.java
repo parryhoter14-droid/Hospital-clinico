@@ -1,8 +1,9 @@
-package clinico.controller;
+package hospital.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,14 +11,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import clinico.entity.Especialidade;
-import clinico.exception.Response;
-import clinico.repository.EspecialidadeRepository;
+import hospital.entity.Especialidade;
+import hospital.exception.Response;
+import hospital.repository.EspecialidadeRepository;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping
+@RequestMapping("/especialidades")
 public class EspecialidadeController {
     
     @Autowired
@@ -55,5 +56,16 @@ public class EspecialidadeController {
 
     return new Response(200, "Especialidade atualizada!");
 }
+@DeleteMapping("/{id}")
+  public Response deleteEspecialidade(@PathVariable Long id) {
+
+    if (!repository.existsById(id)) {
+      return new Response(404, "Especialidade não encontrada");//Quando tentar deletar uma Especialidade que não existe
+    }
+
+    repository.deleteById(id);
+
+    return new Response(204, "Especialidade deletada com sucesso");// A Especialidade foi deletada com sucesso mas recebe como se fosse um "erro"
+  }
     }
 

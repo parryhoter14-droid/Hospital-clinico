@@ -1,8 +1,9 @@
-package clinico.controller;
+package hospital.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,9 +11,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import clinico.entity.Consulta;
-import clinico.exception.Response;
-import clinico.repository.ConsultaRepository;
+import hospital.entity.Consulta;
+import hospital.exception.Response;
+import hospital.repository.ConsultaRepository;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
@@ -63,5 +64,16 @@ public class ConsultaController {
 
     return new Response(200, "Consulta atualizada!");
 }
+@DeleteMapping("/{id}")
+  public Response deleteConsulta(@PathVariable Long id) {
+
+    if (!repository.existsById(id)) {
+      return new Response(404, "Consulta não encontrada");//Quando tentar deletar uma consulta que não existe
+    }
+
+    repository.deleteById(id);
+
+    return new Response(204, "Consulta deletada com sucesso");// A consulta foi deletada com sucesso mas retorno portanto recebe como se fosse um "erro"
+  }
     }
 

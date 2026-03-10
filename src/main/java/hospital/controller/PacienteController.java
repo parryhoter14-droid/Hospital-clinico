@@ -1,8 +1,9 @@
-package clinico.controller;
+package hospital.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,14 +11,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import clinico.entity.Paciente;
-import clinico.exception.Response;
-import clinico.repository.PacienteRepository;
+import hospital.entity.Paciente;
+import hospital.exception.Response;
+import hospital.repository.PacienteRepository;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping
+@RequestMapping("/pacientes")
 public class PacienteController {
     
     @Autowired
@@ -58,4 +59,16 @@ public class PacienteController {
     repository.save(pacienteAntigo);
     return new Response(200, "Paciente atualizado!");
     }
+    
+    @DeleteMapping("/{id}")
+  public Response deletePaciente(@PathVariable Long id) {
+
+    if (!repository.existsById(id)) {
+      return new Response(404, "Paciente não encontrado");
+    }
+
+    repository.deleteById(id);
+
+    return new Response(204, "Paciente deletado com sucesso");
+  }
 }

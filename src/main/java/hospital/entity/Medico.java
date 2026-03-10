@@ -1,32 +1,32 @@
-package clinico.entity;
-
-import java.time.LocalDate;
+package hospital.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-public class Paciente {
+public class Medico {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "O nome do paciente é obrigatório")
+    @NotBlank(message = "O nome é obrigatório")
     @Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres")
     private String nome;
 
-    @NotBlank(message = "O CPF é obrigatório")
-    @Size(min = 11, max = 11, message = "O CPF deve conter 11 dígitos")
-    private String cpf;
+    @NotBlank(message = "O CRM é obrigatório")
+    private String crm;
 
-    @NotNull(message = "A data de nascimento é obrigatória")
-    private LocalDate data_nascimento;
+    @ManyToOne
+    @NotNull(message = "O CRM é obrigatório")
+    @Size(min = 6, max = 6, message = "O CRM deve ter exatamente 6 dígitos")
+    private Especialidade especialidade;
 
     public Long getId() {
         return id;
@@ -44,19 +44,22 @@ public class Paciente {
         this.nome = nome;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getCrm() {
+        return crm;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCrm(String crm) {
+        this.crm = crm;
     }
 
-    public LocalDate getData_nascimento() {
-        return data_nascimento;
+    public Especialidade getEspecialidade() {
+        return especialidade;
     }
 
-    public void setData_nascimento(LocalDate data_nascimento) {
-        this.data_nascimento = data_nascimento;
+    public void setEspecialidade(Especialidade especialidade) {
+        this.especialidade = especialidade;
     }
+
+   
+    
 }

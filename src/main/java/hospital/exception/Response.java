@@ -1,4 +1,4 @@
-package clinico.exception;
+package hospital.exception;
 
 public class Response {
     private int code;

@@ -1,8 +1,8 @@
-package clinico.repository;
+package hospital.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import clinico.entity.Consulta;
+import hospital.entity.Consulta;
 
 public interface ConsultaRepository extends JpaRepository<Consulta, Long>{
     
